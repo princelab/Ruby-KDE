@@ -7,7 +7,8 @@ describe "Kde" do
   end
   describe 'IO' do 
     it "takes Array" do
-      Stats::KDE
+      resp = Stats::KDE.two_sample_t_test([1,2,3],[3,4,5])
+      p resp
     end
   end
   describe 'Bandwidthing' do 

@@ -1,12 +1,18 @@
+require 'enum_extensions'
+require 'statsample'
+
 module Stats
   class KDE
-
+    class << self
+      
+    end
   end # KDE
 
 end # module
 
 
 =begin 
+https://github.com/clbustos/statsample
     class T
       
       class << self
