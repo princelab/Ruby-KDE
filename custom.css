@@ -1,0 +1,13 @@
+div#wrapper {
+  width: 900px;
+  height: 300px;
+}
+div#bean {
+  width: 200px;
+  height: 300px;
+  margin-right: 500px;
+}
+div#time {
+  height: 300px;
+  float: right;
+}
