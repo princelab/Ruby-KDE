@@ -40,11 +40,13 @@ div#wrapper {
 div#bean {
   width: 200px;
   height: 300px;
-  margin-right: 500px;
-  position: relative;
+  float: left;
 }
 div#time {
   height: 300px;
-  float: right;
-  position: relative;
+  width: 500px;
+  float: left;
+}
+div.clear {
+  clear: both;
 }
