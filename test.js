@@ -65,8 +65,6 @@ $(document).ready(function() {
   var area_chart=new Highcharts.Chart({
   chart:{
     renderTo: 'bean',
-    height: 300,
-    width: 300,
     inverted: true, 
   },
   yAxis: {
@@ -140,8 +138,6 @@ $(document).ready(function() {
   var time_plot = new Highcharts.Chart({
     chart:{
       renderTo: 'time',
-      height: 300,
-      width: 400,
     },
     xAxis: { /*
       labels: {
