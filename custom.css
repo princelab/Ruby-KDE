@@ -34,17 +34,17 @@ footer, header, hgroup, menu, nav, section {
 }
 
 div#wrapper {
-  width: 900px;
+  width: 1000px;
   height: 300px;
 }
 div#bean {
-  width: 200px;
+  width: 300px;
   height: 300px;
   float: left;
 }
 div#time {
   height: 300px;
-  width: 500px;
+  width: 600px;
   float: left;
 }
 div.clear {

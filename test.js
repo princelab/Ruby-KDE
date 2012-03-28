@@ -1,6 +1,21 @@
 // JS goes here
 
-var input_data = [79, 54, 74, 62, 85, 55, 88, 85, 51, 85, 54, 84, 78, 47, 83, 52, 62, 84, 52, 79, 51, 47, 78, 69, 74, 83, 55, 76, 78, 79, 73, 77, 66, 80, 74, 52, 48, 80, 59, 90, 80, 58, 84, 58, 73, 83, 64, 53, 82, 59, 75, 90, 54, 80, 54, 83, 71, 64, 77, 81, 59, 84, 48, 82, 60, 92, 78, 78, 65, 73, 82, 56, 79, 71, 62, 76, 60, 78, 76, 83, 75, 82, 70, 65, 73, 88, 76, 80, 48, 86, 60, 90, 50, 78, 63, 72, 84, 75, 51, 82, 62, 88, 49, 83, 81, 47, 84, 52, 86, 81, 75, 59, 89, 79, 59, 81, 50, 85, 59, 87, 53, 69, 77, 56, 88, 81, 45, 82, 55, 90, 45, 83, 56, 89, 46, 82, 51, 86, 53, 79, 81, 60, 82, 77, 76, 59, 80, 49, 96, 53, 77, 77, 65, 81, 71, 70, 81, 93, 53, 89, 45, 86, 58, 78, 66, 76, 63, 88, 52, 93, 49, 57, 77, 68, 81, 81, 73, 50, 85, 74, 55, 77, 83, 83, 51, 78, 84, 46, 83, 55, 81, 57, 76, 84, 77, 81, 87, 77, 51, 78, 60, 82, 91, 53, 78, 46, 77, 84, 49, 83, 71, 80, 49, 75, 64, 76, 53, 94, 55, 76, 50, 82, 54, 75, 78, 79, 78, 78, 70, 79, 70, 54, 86, 50, 90, 54, 54, 77, 79, 64, 75, 47, 86, 63, 85, 82, 57, 82, 67, 74, 54, 83, 73, 73, 88, 80, 71, 83, 56, 79, 78, 84, 58, 83, 43, 60, 75, 81, 46, 90, 46, 74];
+var val_arr = JSON.parse('filename.json')
+var time_arr = JSON.parse('filename2.json')
+
+
+var timepoints = new Array();
+// Format timepoint_data
+var prep_time = function(timepoints, datapoints) {
+  $.each(temp, function(i,v) {
+    timepoints[i] = [Date.parse(v), datapoints[i]]
+  })
+  timepoints.sort( function(a,b) {
+    return a[0]-b[0] 
+  })
+  return timepoints
+}
+var timepoints = prep_time(temp, input_data)
 var kde = science.stats.kde().sample(input_data);
 var normalization_value = 5;
 var normalization_factor = 300;
@@ -52,6 +67,7 @@ var normalize_kde = function(input_kde, factor) {
 
 var output_data = bin_and_normalize_input(input_data, normalization_value);
 var output_kde = normalize_kde(kde(input_data), normalization_factor);
+// TESTING FXNS and data prep
 var test_invert = function(array) {
   output = new Array();
   $.each(array, function(i, value) {
@@ -61,9 +77,12 @@ var test_invert = function(array) {
 }
 var out2_data = test_invert(output_data)
 var out2_kde = test_invert(output_kde)
+
+
+// DOCUMENT
 $(document).ready(function() {
-  var area_chart=new Highcharts.Chart({
-  chart:{
+  var area_chart = new Highcharts.Chart({
+  chart: {
     renderTo: 'bean',
     inverted: true, 
   },
@@ -76,7 +95,7 @@ $(document).ready(function() {
     }, 
     gridLineWidth: 1, 
   },
-  xAxis:{ 
+  xAxis: { 
     min: bin_low_val,
     max: bin_high_val,
     gridLineWidth: 1, 
@@ -84,6 +103,9 @@ $(document).ready(function() {
   },
   plotOptions: {
     column: {
+      stacking: 'normal',
+      shadow: false,
+      borderWidth: 0,
       pointWidth: 1, 
       allowPointSelect: false,
       enableMouseTracking: false, 
@@ -136,7 +158,7 @@ $(document).ready(function() {
     }).add();
   } */
   var time_plot = new Highcharts.Chart({
-    chart:{
+    chart: {
       renderTo: 'time',
     },
     xAxis: { /*
@@ -147,8 +169,9 @@ $(document).ready(function() {
         }
       }, */
       gridLineWidth: 1, 
+      type: 'datetime'
     },
-    yAxis:{ 
+    yAxis: { 
       gridLineWidth: 1, 
       reversed: false
     },
@@ -164,13 +187,13 @@ $(document).ready(function() {
 
     series: [{
         type: 'line',
-        data: output_data,
+        data: timepoints,
         name: 'sample2_numline',
         color: '#1A47C9',
         zIndex: 1,
       }, {
         type: 'line', 
-        data: output_data, 
+        data: out2_data, 
         name: 'sample1_numline',
         color: '#A1749C',
         zIndex: 1
